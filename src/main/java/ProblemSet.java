@@ -20,7 +20,6 @@ public class ProblemSet {
 
 		//***part 1: words, characters, vowels, and spaces***
 		int characters = text.length();
-		int words = text.split("[^a-zA-Z0-9]+").length;
 		int vowels = 0, spaces = 0;
 		for (int i = 0; i < text.length(); i++) { //space and vowel counter
 			char ch = text.charAt(i);
@@ -31,33 +30,28 @@ public class ProblemSet {
 				vowels++;
 			}
 		}
+		String[] wordArray = text.split("[^a-zA-Z0-9]+"); //split everything
+		int words = 0;
+		for (int i = 0; i < wordArray.length; i++){ //word counter because deleting empty strings is too annoying
+		    if (!wordArray[i].isEmpty()){
+		        words++;
+		    }
+		}
 		//output
 		System.out.println("\nTotal Characters: " + characters);
 		System.out.println("Total Words: " + words);
 		System.out.println("Total Vowels: " + vowels);
 		System.out.println("Total Spaces: " + spaces);
 
-		//sentence count before symbols get removed
-		int sentences = 0;
-		String[] sentenceArray = text.split("[.?!]");
-		for (int i = 0; i < sentenceArray.length; i++) {
-			if (!sentenceArray[i].isBlank()) {
-				sentences++;
-			}
-		}
-
 		//***part 2: word frequencies***
-		//turn the text into an array of words (splits at every group of symbols and/or spaces) extra empty strings removed later
-		String[] wordArray = text.split("[^a-zA-Z0-9]+");
-
-		//use method to turn the array into an arraylist with unique words (removes empty strings)
+		//turn word array into an arraylist with unique words (no empty strings)
 		ArrayList<String> list = wordList(wordArray);
 
-		//use method to assign occurences of each word to respective word
+		//assign occurences of each word to respective word
 		HashMap<String, Integer> frequencies = wordFrequency(wordArray);
 
-		//get average word length and amount of unique words (before common words removed)
-		double totalLength = 0; //word lengths combined
+		//get sum of word length and amount of unique words (for later, before common words get removed)
+		double totalLength = 0; //sum of word lengths
 		for (int i = 0; i < list.size(); i++) {
 			totalLength += list.get(i).length() * frequencies.get(list.get(i)); //since words are unique must multiply by occurences
 		}
@@ -81,7 +75,7 @@ public class ProblemSet {
 		}
 
 		//***part 3: advanced statistics***
-		if (list.isEmpty()){ // in case you only put common words for some reason
+		if (list.isEmpty()){ // in case you only put common words or nothing for some reason
 		    list.add("");
 		}
 		int longest = 0, shortest = list.get(0).length(); //get length of longest and shortest words
@@ -120,6 +114,13 @@ public class ProblemSet {
 		System.out.println("\nAverage Word Length: " + totalLength / words);
 
 		//number of sentences
+		int sentences = 0;
+		String[] sentenceArray = text.split("[.?!]");
+		for (int i = 0; i < sentenceArray.length; i++) {
+			if (!sentenceArray[i].isBlank()) {
+				sentences++;
+			}
+		}
 		System.out.println("Number of Sentences: " + sentences);
 
 		//unique words
