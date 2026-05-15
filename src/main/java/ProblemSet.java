@@ -2,7 +2,7 @@
 Lesson: Problem Set 5 (100%)
 Author: Jim Li
 Date Created: May 12, 2026
-Date Last Modified: May 13, 2026
+Date Last Modified: May 15, 2026
 */
 
 import java.util.Scanner;
@@ -30,7 +30,7 @@ public class ProblemSet {
 				vowels++;
 			}
 		}
-		String[] wordArray = text.split("[^a-zA-Z0-9]+"); //split everything
+		String[] wordArray = text.split("[^a-zA-Z0-9]"); //split everything
 		int words = 0;
 		for (int i = 0; i < wordArray.length; i++){ //word counter because deleting empty strings is too annoying
 		    if (!wordArray[i].isEmpty()){
@@ -44,13 +44,13 @@ public class ProblemSet {
 		System.out.println("Total Spaces: " + spaces);
 
 		//***part 2: word frequencies***
-		//turn word array into an arraylist with unique words (no empty strings)
+		//turn word array into an arraylist with unique words (with no empty strings)
 		ArrayList<String> list = wordList(wordArray);
 
 		//assign occurences of each word to respective word
 		HashMap<String, Integer> frequencies = wordFrequency(wordArray);
 
-		//get sum of word length and amount of unique words (for later, before common words get removed)
+		//get sum of all word lengths and amount of unique words (before common words get removed)
 		double totalLength = 0; //sum of word lengths
 		for (int i = 0; i < list.size(); i++) {
 			totalLength += list.get(i).length() * frequencies.get(list.get(i)); //since words are unique must multiply by occurences
@@ -87,7 +87,9 @@ public class ProblemSet {
 				longest = list.get(i).length();
 			}
 		}
-		boolean firstWord = false; //prevents bad comma printing
+		
+		//output
+		boolean firstWord = false; //for comma printing
 		System.out.print("\nLongest Word(s): "); //print longest words
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).length() == longest) {
