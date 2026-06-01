@@ -1,0 +1,10 @@
+K(30%): 100%
+I(30%): 99%
+C(10%): 100%
+A(30%): 100%
+99.7%
+
+Great work Jim!
+My only criticism would be to break things down a little bit more into functions. (shortest/longest word etc.).
+This helps make it easier to debug (separates code so finding where the bug happens is easier).
+Can also make the code substantially easier to read by being able to read a function name to sum up 10-15 lines of code instead of actually reading the code.
